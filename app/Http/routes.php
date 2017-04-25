@@ -11,39 +11,38 @@
 |
 */
 
-// Route::get('/uppercase/{word}', function ($word) {
-//     	return strtoupper('$word');
-// });
+Route::get('/uppercase/{word}', function ($word) {
+    	return strtoupper($word);
+});
 
-// Route::get('/increment/{number}', function ($number) {
-//     if (is_numeric($number)){
-//     return $number + 1;
-// 		else {
-// 		return $number . "this can' be incremented";	
-// 		}
+Route::get('/uppercase','HomeController@uppercase');
+
+Route::get('/uppercase/{word}', function ($word){
+	$data = [
+	'word'=> $word,
+	'uppercased'=> strtoupper($word),
+	];
+	return view('uppercase', $data);
+});
+
+Route::get('/increment', 'HomeController@increment');
+
+Route::get('/increment/{number?}', function($number = 0) {
+    $data = [];
+    if(is_numeric($number)) {
+        $data['number'] = $number + 1;
+    } else {
+        $data['number'] = $number . " is not a number and cannot be incremented.";
+    }
+    return view('increment', $data);
+});
+	
+// Route::get('/rolldice/{number}', function($number){
+// 	$randomNumber =  random_int(1, 6);
+// 	return view('roll-dice',['number'=>$number, 'randomNumber'=>$randomNumber]);
+// 	if ($randomNumber === $number) {
+// 		return "Great guess!";
+// 	} else{
+// 		return "Keep trying";
 // 	}
 // });
-
-// Route::get('/add/{num1}/{num2}', function ($num1, $num2){
-// 	if (is_numeric($num1) && (is_numeric($num2)){
-// 		return $num1 + $num2;
-// 	} else{
-// 		return "both parameters must be numeric";
-// 	}    
-// });
-
-// Route::get('/sayhello/{name}', function($name)
-// {
-// 	$data = ['name' => $name];
-//     return view('my-first-view', $data);
-// });
-
-Route::get('/rolldice/{number}', function($number){
-	$randomNumber =  random_int(1, 6);
-	return view('roll-dice',['number'=>$number, 'randomNumber'=>$randomNumber]);
-	if ($randomNumber === $number) {
-		return "Great guess!";
-	} else{
-		return "Keep trying";
-	}
-});
