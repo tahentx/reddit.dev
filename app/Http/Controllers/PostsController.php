@@ -16,7 +16,10 @@ class PostsController extends Controller
      */
     public function index()
     {
-        //
+        $posts = \App\Models\Post::all();
+        $data = [];
+        $data['posts'] = $posts;
+        return view('posts.index', $data);
     }
 
     /**
@@ -26,7 +29,7 @@ class PostsController extends Controller
      */
     public function create()
     {
-        //
+        return view('posts.create');
     }
 
     /**
@@ -48,7 +51,9 @@ class PostsController extends Controller
      */
     public function show($id)
     {
-        //
+        $posts = \App\Models\Post::all();
+        $data = ['posts' => $poststs];
+        return view('posts/show.php', $data);
     }
 
     /**

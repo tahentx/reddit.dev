@@ -12,25 +12,25 @@ class ClassExercise extends Migration
      */
     public function up()
     {
-        Schema::create('Posts', function(Blueprint $table) {
+        Schema::create('posts', function(Blueprint $table) {
             $table->increments('id');
             $table->string('title');
             $table->string('url');
             $table->string('content');
-            $table->foreign('created_by')->references('created_by')->on('user');
-            $table->timestamps();
+            $table->integer('created_by')->unsigned();
+            $table->foreign('created_by')->references('id')->on('users');
             $table->timestamps();
         });
 
 
 
-        Schema::create('Votes', function(Blueprint $table) {
+        Schema::create('votes', function(Blueprint $table) {
             $table->increments('id');
             $table->bigInteger('vote');
-            $table->foreign('user_id')->unsigned();
-            $table->foreign('user_id')->references('id')->on('user');
-            $table->foreign('post_id')->references('id')->on('Posts');
-            $table->timestamps();
+            $table->integer('user_id')->unsigned();
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->integer('post_id')->unsigned();
+            $table->foreign('post_id')->references('id')->on('posts');
             $table->timestamps();
         });
 
@@ -43,11 +43,7 @@ class ClassExercise extends Migration
      */
     public function down()
     {
-         Schema::drop('Posts');
-    }
-
-   public function down()
-    {
-         Schema::drop('Votes');
+         Schema::drop('votes');
+         Schema::drop('posts');
     }
 }

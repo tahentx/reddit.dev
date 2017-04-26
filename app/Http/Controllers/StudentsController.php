@@ -59,7 +59,7 @@ class StudentsController extends Controller
      */
     public function edit($id)
     {
-        return view('students.edit');
+        return view('students.edit');   
     }
 
     /**
@@ -82,6 +82,6 @@ class StudentsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        return 'Post deleted';
     }
 }
