@@ -12,8 +12,7 @@ class ClassExercise extends Migration
      */
     public function up()
     {
-        Schema::create('Posts', function(Blueprint $table))
-        {
+        Schema::create('Posts', function(Blueprint $table) {
             $table->increments('id');
             $table->string('title');
             $table->string('url');
@@ -21,19 +20,19 @@ class ClassExercise extends Migration
             $table->foreign('created_by')->references('created_by')->on('user');
             $table->timestamps();
             $table->timestamps();
-        }
+        });
 
 
 
-        Schema::create('Votes', function(Blueprint $table))
-        {
+        Schema::create('Votes', function(Blueprint $table) {
             $table->increments('id');
-            $table->foreign('user_id')->references('created_by')->on('user');
-            $table->foreign('post_id')->references('created_by')->on('Posts');
             $table->bigInteger('vote');
+            $table->foreign('user_id')->unsigned();
+            $table->foreign('user_id')->references('id')->on('user');
+            $table->foreign('post_id')->references('id')->on('Posts');
             $table->timestamps();
             $table->timestamps();
-        }
+        });
 
     }
 

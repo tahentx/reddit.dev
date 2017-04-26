@@ -11,32 +11,15 @@
 |
 */
 
-Route::get('/uppercase/{word}', function ($word) {
-    	return strtoupper($word);
-});
+Route::get('/uppercase/{word}', 'HomeController@uppercase');
 
-Route::get('/uppercase','HomeController@uppercase');
-
-Route::get('/uppercase/{word}', function ($word){
-	$data = [
-	'word'=> $word,
-	'uppercased'=> strtoupper($word),
-	];
-	return view('uppercase', $data);
-});
-
-Route::get('/increment', 'HomeController@increment');
-
-Route::get('/increment/{number?}', function($number = 0) {
-    $data = [];
-    if(is_numeric($number)) {
-        $data['number'] = $number + 1;
-    } else {
-        $data['number'] = $number . " is not a number and cannot be incremented.";
-    }
-    return view('increment', $data);
-});
+Route::get('/increment/{number?}','HomeController@increment');
 	
+Route::resource('posts', 'PostsController');
+
+Route::resource('students', 'StudentsController');
+
+    
 // Route::get('/rolldice/{number}', function($number){
 // 	$randomNumber =  random_int(1, 6);
 // 	return view('roll-dice',['number'=>$number, 'randomNumber'=>$randomNumber]);
