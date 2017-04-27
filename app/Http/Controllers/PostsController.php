@@ -18,7 +18,7 @@ class PostsController extends Controller
     {
         $posts = \App\Models\Post::all();
         $data = [];
-        $data['posts'] = $posts;
+        $data['posts'] = $posts;    
         return view('posts.index', $data);
     }
 
@@ -40,7 +40,14 @@ class PostsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+       $posts = new \App\Models\Student();
+       $posts->first_name = $request->first_name;
+       $posts->description = $request->description;
+       $posts->subscribed = $request->subscribed;
+       $posts->school_name = $request->school_name;
+       $posts->save();
+
+       return redirect()->action('PostsController@index');
     }
 
     /**
@@ -64,7 +71,8 @@ class PostsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $posts = \App\Models\Post::find($id);
+        return view('posts.edit')->with('posts', $posts);   
     }
 
     /**
@@ -76,7 +84,8 @@ class PostsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        
+
     }
 
     /**
@@ -87,6 +96,8 @@ class PostsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $posts = \App\Models\Post::find($id);
+        $posts->delete;
+        return view('posts.show')
     }
 }

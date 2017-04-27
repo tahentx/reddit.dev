@@ -37,7 +37,13 @@ class StudentsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+       $student = new \App\Models\Student();
+       $student->first_name = $request->first_name;
+       $student->description = $request->description;
+       $student->subscribed = $request->subscribed;
+       $student->school_name = $request->school_name;
+       $student->save();
+       return redirect()->action('StudentsController@index');
     }
 
     /**

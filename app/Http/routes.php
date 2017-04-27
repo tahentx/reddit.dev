@@ -40,13 +40,4 @@ Route::get('orm-test', function ()
    $post->save();	
 
 });
-    
-// Route::get('/rolldice/{number}', function($number){
-// 	$randomNumber =  random_int(1, 6);
-// 	return view('roll-dice',['number'=>$number, 'randomNumber'=>$randomNumber]);
-// 	if ($randomNumber === $number) {
-// 		return "Great guess!";
-// 	} else{
-// 		return "Keep trying";
-// 	}
-// });
+
