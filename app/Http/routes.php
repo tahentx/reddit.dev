@@ -23,6 +23,8 @@ Route::get('students', 'StudentsController@edit');
 
 Route::resource('students', 'StudentsController');
 
+Route::resource('posts', 'PostsController');
+
 Route::get('orm-test', function ()
 {
 	$user = new \App\User();

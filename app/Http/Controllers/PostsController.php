@@ -10,16 +10,14 @@ use App\Http\Controllers\Controller;
 class PostsController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of the resource.   
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        $posts = \App\Models\Post::all();
-        $data = [];
-        $data['posts'] = $posts;    
-        return view('posts.index', $data);
+        $posts = Post::paginate(4);    
+        return view('posts.index')->with(array('posts' => $posts));
     }
 
     /**
@@ -40,6 +38,15 @@ class PostsController extends Controller
      */
     public function store(Request $request)
     {
+        $rules = array(
+        'first_name' => 'required|max:100',
+        'description'   => 'required',
+        'subscribed'   => 'required',
+        'school_name'   => 'required'
+        );
+
+       $this->validate($request, $rules);
+
        $posts = new \App\Models\Student();
        $posts->first_name = $request->first_name;
        $posts->description = $request->description;
@@ -59,8 +66,8 @@ class PostsController extends Controller
     public function show($id)
     {
         $posts = \App\Models\Post::all();
-        $data = ['posts' => $poststs];
-        return view('posts/show.php', $data);
+        $data = ['posts' => $posts];
+        return view('posts.show', $data);
     }
 
     /**
@@ -84,7 +91,17 @@ class PostsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
+        $rules = [
+             'title' => 'required|max:100',
+             'url'   => 'required|url',
+             'content'   => 'required',
+         ];
+ 
+         $this->validate($request, $rules);
+
+         $post = \App\Models\Post::find($id);
+         $post->title = $request->title;
+         $post->url = $request->url;
 
     }
 
@@ -98,6 +115,6 @@ class PostsController extends Controller
     {
         $posts = \App\Models\Post::find($id);
         $posts->delete;
-        return view('posts.show')
+        return view('posts.show');
     }
 }
