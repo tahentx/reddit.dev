@@ -20,6 +20,11 @@ class ClassExercise extends Migration
             $table->integer('created_by')->unsigned();
             $table->foreign('created_by')->references('id')->on('users');
             $table->timestamps();
+
+            $table->integer('created_by')->unsigned();
+            $table->foreign('created_by')
+              ->references('id')
+              ->on('users');
         });
 
 
@@ -45,5 +50,7 @@ class ClassExercise extends Migration
     {
          Schema::drop('votes');
          Schema::drop('posts');
+         
+         $table->dropForeign(['created_by']);
     }
 }

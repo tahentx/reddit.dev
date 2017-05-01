@@ -14,6 +14,11 @@ class PostsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct ()
+    {
+        $this->middleware('auth', ['except' => ['index', 'show']]);
+    }
+
     public function index()
     {
         $posts = Post::paginate(4);    
@@ -46,6 +51,13 @@ class PostsController extends Controller
         );
 
        $this->validate($request, $rules);
+
+       if (!$post){
+        Log::error("Post with id of $id not found.");
+        abort(404);
+       }
+
+       abort(404);
 
        $posts = new \App\Models\Student();
        $posts->first_name = $request->first_name;
