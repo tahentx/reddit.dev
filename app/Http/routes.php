@@ -11,9 +11,6 @@
 |
 */
 
-Route::get('/uppercase/{word}', 'HomeController@uppercase');
-
-Route::get('/increment/{number?}','HomeController@increment');
 	
 Route::get('posts', 'PostsController@show');
 
@@ -44,13 +41,12 @@ Route::get('orm-test', function ()
 	$user->password = 'password';
 	$user->save();
 
-
-   $post = new \App\Models\Post();
-   $post->title = 'My first post';
-   $post->content = 'Content test';
-   $post->url = 'http://codeup.com';
-   $post->created_by = 1;
-   $post->save();	
+    $post = new \App\Models\Post();
+    $post->title = 'My first post';
+    $post->content = 'Content test';
+    $post->url = 'http://codeup.com';
+    $post->created_by = 1;
+    $post->save();	
 
 });
 

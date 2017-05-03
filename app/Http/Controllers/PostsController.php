@@ -89,7 +89,7 @@ class PostsController extends Controller
         abort(404);
        }
 
-        $post = ['posts' => $posts];
+        $post = ['post' => $post];
         return view('posts.show', $post);
     }
 
