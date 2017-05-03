@@ -16,7 +16,8 @@ class StudentsController extends Controller
      */
     public function index()
     {
-        //
+        $students = Student::paginate(4);
+        return view('students.index')->with('students', $students);
     }
 
     /**
@@ -43,7 +44,11 @@ class StudentsController extends Controller
        $student->subscribed = $request->subscribed;
        $student->school_name = $request->school_name;
        $student->save();
-       return redirect()->action('StudentsController@index');
+
+       $request->session()->flash('successMessage', 'Post saved successfully');
+        
+       return redirect()->action('StudentsController@show', $student->id);
+    
     }
 
     /**
@@ -52,11 +57,17 @@ class StudentsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request,$id)
     {
-        //
-    }
+       $student = Student::find($id);
 
+        if(!$student) {
+            Log::info("Student with ID $id cannot be found");
+            $request->session()->flash('errorMessage', 'Post not found');
+            abort(404);
+        }
+        return view('students.show')->with('student', $student);
+    }
     /**
      * Show the form for editing the specified resource.
      *
@@ -65,7 +76,7 @@ class StudentsController extends Controller
      */
     public function edit($id)
     {
-        return view('students.edit');   
+        return view('students.edit')->with('student', $student);   
     }
 
     /**

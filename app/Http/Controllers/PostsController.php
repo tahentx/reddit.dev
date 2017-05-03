@@ -28,12 +28,12 @@ class PostsController extends Controller
         if ($request->has('search')){
             $posts = 
             Post::join('users', 'created_by', '=', 'users.id')
-            ->where('title', 'LIKE', "%request->search%") 
-            ->orWhere('name', 'LIKE', "%request->search%") 
+            ->where('title', 'LIKE', "%$request->search%") 
+            ->orWhere('name', 'LIKE', "%$request->search%") 
             ->orderBy('created_by', 'ASC')
             ->paginate(4);
         } else {
-            $posts = Post::orderBy('created_by', 'ASC')->paginate(4);    
+            $posts = Post::orderBy('created_at', 'ASC')->paginate(4); 
         }
 
         $data = [];
@@ -147,7 +147,7 @@ class PostsController extends Controller
 
     public function selectNewPost ($id)
     {
-            dd(Post::where('id','>',3)->where('created_by',=,'2')->orderBy('created_at')->get());
+            dd(Post::where('id','>',3)->where('created_by','=','2')->orderBy('created_at')->get());
     }
 
     /**
@@ -166,7 +166,7 @@ class PostsController extends Controller
         }
         
         $post->delete();
-        $request->session()->flash('successMessage', 'Post deleted successfully');
+         $request->session()->flash('successMessage', 'Post deleted successfully');
         return view('posts.index');
     }
 }
