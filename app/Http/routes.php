@@ -11,6 +11,11 @@
 |
 */
 
+use App\Models\Post;
+use App\User;
+
+// Basic Routes
+
 Route::get('/', 'PostsController@index');	
 Route::get('posts', 'PostsController@show');
 Route::get('posts/{id}/edit','PostsController@edit');
@@ -25,8 +30,20 @@ Route::get('auth/logout', 'Auth\AuthController@getLogout');
 
 // Registration Routes
 
-Route::get('auth/register', 'Auth\AuthController@getRegister');
-Route::post('auth/register', 'Auth\AuthController@postRegister');
+Route::get('/register', 'Auth\AuthController@getRegister');
+Route::post('/register', 'Auth\AuthController@postRegister');
+
+// Search 
+
+Route::get('/search',function(){
+    $q = Input::get ( 'q' );
+    $post = User::where('title','LIKE','%'.$q.'%')->orWhere('content','LIKE','%'.$q.'%')->get();
+    if(count($post) > 0){
+        return view('/search')->withDetails($post)->withQuery ( $q );
+    } else {
+    	return view ('/search')->withMessage('No posts found. Maybe this is something you should write about!');
+    }
+});
 
 Route::get('orm-test', function ()
 {
