@@ -11,7 +11,7 @@
             @if($post->created_at != $post->updated_at)
                 <p>Edited {{ $post->updated_at->setTimezone('America/Chicago')->diffForHumans() }}</p>
             @endif
-
+        <a href="{{}}"></a>
         </article>
     @endforeach
 

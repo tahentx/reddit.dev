@@ -16,7 +16,7 @@ Class UserTableSeeder extends Seeder
         for($i = 0; $i < 10; $i++) {
             $user = new \App\User();
             $user->name = $faker->userName;
-            $user->password = $faker->password;
+            $user->password = 'vagrant';    
             $user->email = $faker->safeEmail;
             $user->save();
         }

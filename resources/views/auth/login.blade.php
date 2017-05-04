@@ -1,4 +1,5 @@
-<form method="POST" action="/auth/login">
+
+<form method="POST" action="{{ action('Auth\AuthController@postLogin')}}">
     {!! csrf_field() !!}
 
     <div>

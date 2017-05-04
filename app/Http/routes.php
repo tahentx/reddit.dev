@@ -11,15 +11,10 @@
 |
 */
 
-	
+Route::get('/', 'PostsController@index');	
 Route::get('posts', 'PostsController@show');
-
 Route::get('posts', 'PostsController@index');
-
-Route::get('students', 'StudentsController@edit');
-
 Route::resource('students', 'StudentsController');
-
 Route::resource('posts', 'PostsController');
 
 // Authentication Routes
@@ -35,18 +30,9 @@ Route::post('auth/register', 'Auth\AuthController@postRegister');
 
 Route::get('orm-test', function ()
 {
-	$user = new \App\User();
-	$user->name = 'Todd';
-	$user->email = 'hendricks.ta@gmail.com';
-	$user->password = 'password';
-	$user->save();
-
-    $post = new \App\Models\Post();
-    $post->title = 'My first post';
-    $post->content = 'Content test';
-    $post->url = 'http://codeup.com';
-    $post->created_by = 1;
-    $post->save();	
-
+	$post = \App\Models\Post::find(1);
+	$post->title = "New Title Goes Here.";
+	$post->save();
+	return $post;
 });
 

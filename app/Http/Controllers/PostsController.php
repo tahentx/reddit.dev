@@ -102,10 +102,12 @@ class PostsController extends Controller
     public function edit(Request $request, $id)
     {
         $post = Post::find($id);
+        
         if (!$post) {
             Log::error("Post with id of $id not found.");
             abort(404);
         }
+        
         $data = [];
         $data['post'] = $post;
         return view('posts.edit')->with($data);
@@ -126,9 +128,9 @@ class PostsController extends Controller
              'content'   => 'required',
          ];
  
-         $this->validate($request, Post::$rules);
+         $this->validate($request, $rules);
 
-         $post = \App\Models\Post::find($id);
+         $post = Post::find($id);
          
         if (!$post) {
             Log::error("Post with id of $id not found.");
@@ -142,6 +144,7 @@ class PostsController extends Controller
          $post->save();
 
          $request->session()->flash('successMessage', 'Post updated successfully');
+         
          return redirect()->action('PostsController@show', [$post->id]);
     }
 
