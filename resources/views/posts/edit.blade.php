@@ -5,9 +5,9 @@
 
     <form action="{{ action('PostsController@update', $post->id ) }}" method="post">
         @include('partials.posts-form')
-        <input type="submit" class="btn btn-default" value="{{ old('title') }}">
-        <input type="submit" class="btn btn-default" value="{{ old('url') }}">
-        <input type="submit" class="btn btn-default" value="{{ old('content') }}">
+        <input type="text" class="btn btn-default" value="{{ isset($post->title) ? $post->title:old('title') }}">
+        <input type="text" class="btn btn-default" value="{{ isset($post->url) ? $post->url:old('url') }}">
+        <input type="text" class="btn btn-default" value="{{ isset($post->content) ? $post->content:old('content') }}">
         {{ method_field('PUT') }}
     </form>
 
