@@ -13,7 +13,7 @@
 
 Route::get('/', 'PostsController@index');	
 Route::get('posts', 'PostsController@show');
-Route::get('posts', 'PostsController@index');
+Route::get('posts/{id}/edit','PostsController@edit');
 Route::resource('students', 'StudentsController');
 Route::resource('posts', 'PostsController');
 

@@ -5,7 +5,9 @@
 
     <form action="{{ action('PostsController@update', $post->id ) }}" method="post">
         @include('partials.posts-form')
-        <input type="submit" class="btn btn-default" value="Update post information">
+        <input type="submit" class="btn btn-default" value="{{ old('title') }}">
+        <input type="submit" class="btn btn-default" value="{{ old('url') }}">
+        <input type="submit" class="btn btn-default" value="{{ old('content') }}">
         {{ method_field('PUT') }}
     </form>
 

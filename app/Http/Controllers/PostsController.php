@@ -99,7 +99,7 @@ class PostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Request $request, $id)
+    public function edit($id)
     {
         $post = Post::find($id);
         
@@ -107,10 +107,11 @@ class PostsController extends Controller
             Log::error("Post with id of $id not found.");
             abort(404);
         }
-        
+
         $data = [];
         $data['post'] = $post;
         return view('posts.edit')->with($data);
+
     }
 
     /**
@@ -144,8 +145,8 @@ class PostsController extends Controller
          $post->save();
 
          $request->session()->flash('successMessage', 'Post updated successfully');
-         
-         return redirect()->action('PostsController@show', [$post->id]);
+
+         return redirect()->action('PostsController@show', $post->id);
     }
 
     public function selectNewPost ($id)
